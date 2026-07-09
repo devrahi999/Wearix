@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -9,7 +9,7 @@ import { loginWithEmail, loginWithGoogle, registerWithEmail, forgotPassword } fr
 
 type Mode = 'login' | 'register' | 'forgot';
 
-export default function AuthPage() {
+function AuthForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/account';
@@ -234,5 +234,17 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+      </div>
+    }>
+      <AuthForm />
+    </Suspense>
   );
 }

@@ -1,13 +1,13 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useState, Suspense } from 'react';
 import ProductGrid from '@/components/product/ProductGrid';
 import Link from 'next/link';
 import { getProducts } from '@/lib/db';
 import type { Product } from '@/types/product';
 
-export default function SearchPage() {
+function SearchForm() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -70,5 +70,13 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen py-24 flex justify-center"><div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+      <SearchForm />
+    </Suspense>
   );
 }

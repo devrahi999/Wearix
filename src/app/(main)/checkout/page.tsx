@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cartStore';
@@ -14,7 +14,7 @@ import {
 } from '@/lib/db';
 import { useAuth } from '@/context/AuthContext';
 
-export default function CheckoutPage() {
+function CheckoutForm() {
   const { items: cartItems, buyNowItem, getTotalPrice, clearCart, clearBuyNowItem } = useCartStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -431,5 +431,17 @@ export default function CheckoutPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+      </div>
+    }>
+      <CheckoutForm />
+    </Suspense>
   );
 }
