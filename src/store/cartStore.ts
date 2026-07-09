@@ -21,6 +21,7 @@ interface CartStore {
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  getSubtotal: () => number;
   buyNowItem: CartItem | null;
   setBuyNowItem: (item: CartItem) => void;
   clearBuyNowItem: () => void;
