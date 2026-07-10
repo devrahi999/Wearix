@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { Trash2, ShoppingBag, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { getStoreSettings, type StoreSettings } from '@/lib/db';
 
-export default function CartPage() {
+function CartPageContent() {
   const { items, updateQuantity, removeItem, getTotalPrice, getSubtotal } = useCartStore();
   const subtotal = getSubtotal();
   const discountedSubtotal = getTotalPrice();
@@ -183,5 +183,13 @@ export default function CartPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CartPage() {
+  return (
+    <Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-20 text-center">Loading cart...</div>}>
+      <CartPageContent />
+    </Suspense>
   );
 }
