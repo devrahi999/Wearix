@@ -11,8 +11,10 @@ export default function MainLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      <TopBanner />
-      <Navbar />
+      <div className="sticky top-0 z-50 w-full flex flex-col">
+        <TopBanner />
+        <Navbar />
+      </div>
       <main className="flex-grow pb-20">{children}</main>
       <Footer />
       <WhatsAppButton />

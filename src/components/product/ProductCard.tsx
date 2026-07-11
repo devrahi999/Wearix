@@ -11,9 +11,10 @@ import { useState, useEffect } from 'react';
 
 interface ProductCardProps {
   product: Product;
+  isFlashSalePage?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, isFlashSalePage }: ProductCardProps) {
   const { toggleWishlist, isWishlisted } = useWishlistStore();
   const { addItem } = useCartStore();
   const wishlisted = isWishlisted(product.id);
@@ -48,14 +49,18 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/product/${product.slug}`} className="group block">
-      <div className="relative bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
+      <div className={`relative bg-white border ${isFlashSalePage ? 'border-orange-500 shadow-orange-100' : 'border-gray-100'} rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5`}>
         {/* Image */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
+        <div 
+          className="relative aspect-[3/4] overflow-hidden bg-gray-50 [-webkit-touch-callout:none] select-none"
+          onContextMenu={(e) => e.preventDefault()}
+        >
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-105 pointer-events-none select-none"
+            draggable={false}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
 
@@ -91,7 +96,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="absolute bottom-0 inset-x-0 translate-y-full group-hover:translate-y-0 transition-transform duration-200">
               <button
                 onClick={handleQuickAdd}
-                className="w-full py-2.5 bg-blue-600 text-white text-sm font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors"
+                className={`w-full py-2.5 text-white text-sm font-semibold flex items-center justify-center gap-2 transition-colors ${isFlashSalePage ? 'bg-orange-600 hover:bg-orange-700' : 'bg-blue-600 hover:bg-blue-700'}`}
               >
                 <ShoppingCart className="w-4 h-4" /> Quick Add
               </button>

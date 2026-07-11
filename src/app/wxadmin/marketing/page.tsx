@@ -115,7 +115,7 @@ export default function MarketingPage() {
             </label>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Banner Text</label>
               <input 
@@ -126,18 +126,8 @@ export default function MarketingPage() {
                 className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
               />
             </div>
-            <div>
-              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Link (URL or Path)</label>
-              <input 
-                type="text" 
-                value={settings.topBannerLink}
-                onChange={e => setSettings({...settings, topBannerLink: e.target.value})}
-                placeholder="e.g. /shop"
-                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-              />
-            </div>
           </div>
-          <p className="text-xs text-gray-500 mt-3">This text will appear in a blue bar at the very top of the website. A "Click Here" link will be appended to it.</p>
+          <p className="text-xs text-gray-500 mt-3">This text will horizontally scroll in a blue bar at the very top of the website.</p>
         </div>
 
         {/* Home Page Popup Banner */}

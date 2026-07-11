@@ -99,7 +99,7 @@ export default function HomeClient() {
             className={`grid gap-4 ${promoBanners.length === 1 ? 'grid-cols-1' : 'md:grid-cols-2'}`}
           >
             {promoBanners.slice(0, 2).map((promo, idx) => (
-              <Link key={promo.id} href={promo.link} className="group relative overflow-hidden rounded-3xl aspect-[4/3] bg-gray-900">
+              <Link key={promo.id} href={promo.link} className="group relative overflow-hidden rounded-3xl aspect-[4/3] md:aspect-[2/1] lg:h-[280px] bg-gray-900">
                 <Image
                   src={promo.imageUrl}
                   alt={promo.title}
@@ -149,7 +149,7 @@ export default function HomeClient() {
               </div>
               <div className="shrink-0">
                 <Link
-                  href="/shop"
+                  href="/flash-sale"
                   className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-4 rounded-2xl transition-all hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 text-sm md:text-base"
                 >
                   Shop Now <ArrowRight className="w-5 h-5" />

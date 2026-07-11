@@ -38,6 +38,7 @@ export default function NewProductPage() {
     colors: '',
     isFeatured: false,
     isActive: true,
+    isFlashSale: false,
     isOutOfStock: false,
   });
 
@@ -92,6 +93,7 @@ export default function NewProductPage() {
         reviewCount: 0,
         isFeatured: form.isFeatured,
         isActive: form.isActive,
+        isFlashSale: form.isFlashSale,
         isOutOfStock: form.isOutOfStock,
       }, productSlug);
       router.push('/wxadmin/products');
@@ -211,7 +213,12 @@ export default function NewProductPage() {
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={form.isFeatured} onChange={e => setForm({...form, isFeatured: e.target.checked})} />
-              <span className="font-medium text-gray-700">Featured Product</span>
+              <span className="text-sm font-bold text-gray-700">Feature on Homepage</span>
+            </label>
+            <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+              <input type="checkbox" checked={form.isFlashSale} onChange={e => setForm({...form, isFlashSale: e.target.checked})}
+                className="w-4 h-4 text-orange-600 rounded border-gray-300 focus:ring-orange-500" />
+              <span className="text-sm font-bold text-gray-700">Add to Flash Sale</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={form.isOutOfStock} onChange={e => setForm({...form, isOutOfStock: e.target.checked})} />

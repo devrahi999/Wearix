@@ -15,13 +15,23 @@ export default function TopBanner() {
   if (!settings || !settings.topBannerActive) return null;
 
   return (
-    <div className="bg-blue-600 text-white text-xs font-semibold py-2 px-4 text-center relative z-[60] w-full">
-      {settings.topBannerText}{' '}
-      {settings.topBannerLink && (
-        <Link href={settings.topBannerLink} className="underline hover:text-blue-200 ml-2 font-bold whitespace-nowrap">
-          Click Here
-        </Link>
-      )}
+    <div className="bg-blue-600 text-white text-xs font-semibold py-2 relative z-[60] w-full overflow-hidden flex items-center">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes marquee {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+          display: inline-block;
+          white-space: nowrap;
+          animation: marquee 20s linear infinite;
+        }
+      `}} />
+      <div className="w-full overflow-hidden whitespace-nowrap">
+        <span className="animate-marquee px-4">
+          {settings.topBannerText}
+        </span>
+      </div>
     </div>
   );
 }

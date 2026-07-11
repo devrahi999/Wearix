@@ -160,13 +160,17 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 bg-white border border-gray-100 rounded-2xl p-4 sm:p-6 shadow-sm mb-12">
         {/* Gallery */}
         <div className="space-y-4">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+          <div 
+            className="relative aspect-square overflow-hidden rounded-xl bg-gray-50 border border-gray-100 [-webkit-touch-callout:none] select-none"
+            onContextMenu={(e) => e.preventDefault()}
+          >
             {activeImage && (
               <Image
                 src={activeImage}
                 alt={product.name}
                 fill
-                className="object-cover"
+                className="object-contain pointer-events-none select-none"
+                draggable={false}
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
@@ -188,7 +192,14 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
                     activeImage === img ? 'border-blue-600 scale-95 shadow-sm' : 'border-transparent opacity-80 hover:opacity-100'
                   }`}
                 >
-                  <Image src={img} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
+                  <Image 
+                    src={img} 
+                    alt="" 
+                    fill 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+                    className="object-contain pointer-events-none select-none" 
+                    draggable={false}
+                  />
                 </button>
               ))}
             </div>
@@ -353,7 +364,6 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
         <div className="flex border-b border-gray-100 mb-6">
           {[
             { id: 'details', label: 'Product Specifications' },
-            { id: 'size-chart', label: 'Size Chart' },
             { id: 'reviews', label: 'Customer Reviews' },
           ].map((tab) => (
             <button
@@ -375,37 +385,6 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
             <p className="whitespace-pre-wrap">
               {product.description}
             </p>
-          </div>
-        )}
-
-        {activeTab === 'size-chart' && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-100 text-gray-700">
-                  <th className="p-3 font-semibold">Size</th>
-                  <th className="p-3 font-semibold">Chest (Inches)</th>
-                  <th className="p-3 font-semibold">Length (Inches)</th>
-                  <th className="p-3 font-semibold">Sleeve (Inches)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 text-gray-600">
-                {[
-                  { size: 'S', chest: '38"', length: '27"', sleeve: '7.5"' },
-                  { size: 'M', chest: '40"', length: '28"', sleeve: '8"' },
-                  { size: 'L', chest: '42"', length: '29"', sleeve: '8.5"' },
-                  { size: 'XL', chest: '44"', length: '30"', sleeve: '9"' },
-                  { size: 'XXL', chest: '46"', length: '31"', sleeve: '9.5"' },
-                ].map((row) => (
-                  <tr key={row.size} className="hover:bg-gray-50/50">
-                    <td className="p-3 font-bold text-gray-900">{row.size}</td>
-                    <td className="p-3">{row.chest}</td>
-                    <td className="p-3">{row.length}</td>
-                    <td className="p-3">{row.sleeve}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
         )}
 

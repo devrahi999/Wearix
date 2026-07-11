@@ -38,6 +38,7 @@ export default function AdminEditProductPage() {
     colors: '',
     isFeatured: false,
     isActive: true,
+    isFlashSale: false,
     isOutOfStock: false,
   });
 
@@ -61,6 +62,7 @@ export default function AdminEditProductPage() {
           colors: (p.colors || []).join(', '),
           isFeatured: !!p.isFeatured,
           isActive: !!p.isActive,
+          isFlashSale: !!p.isFlashSale,
           isOutOfStock: !!p.isOutOfStock,
         });
         setImages(p.images || []);
@@ -115,6 +117,7 @@ export default function AdminEditProductPage() {
         tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
         isFeatured: form.isFeatured,
         isActive: form.isActive,
+        isFlashSale: form.isFlashSale,
         isOutOfStock: form.isOutOfStock,
         stock: {},
       });
@@ -271,7 +274,12 @@ export default function AdminEditProductPage() {
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={form.isFeatured} onChange={e => setForm({...form, isFeatured: e.target.checked})}
                 className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
-              <span className="text-sm font-medium text-gray-700">Show in Featured</span>
+              <span className="text-sm font-bold text-gray-700">Feature on Homepage</span>
+            </label>
+            <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+              <input type="checkbox" checked={form.isFlashSale} onChange={e => setForm({...form, isFlashSale: e.target.checked})}
+                className="w-4 h-4 text-orange-600 rounded border-gray-300 focus:ring-orange-500" />
+              <span className="text-sm font-bold text-gray-700">Add to Flash Sale</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={form.isOutOfStock} onChange={e => setForm({...form, isOutOfStock: e.target.checked})}

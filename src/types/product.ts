@@ -19,6 +19,7 @@ export interface Product {
   reviewCount: number;
   isFeatured: boolean;
   isActive: boolean;
+  isFlashSale?: boolean;
   isOutOfStock?: boolean;
   createdAt: string;
 }
