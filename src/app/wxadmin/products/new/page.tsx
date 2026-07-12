@@ -34,6 +34,8 @@ export default function NewProductPage() {
     gender: 'men' as 'men' | 'women' | 'kids' | 'unisex',
     price: '',
     discountPrice: '',
+    rating: '5.0',
+    reviewCount: '1',
     tags: '',
     colors: '',
     isFeatured: false,
@@ -89,8 +91,8 @@ export default function NewProductPage() {
         colors: form.colors ? form.colors.split(',').map(c => c.trim()).filter(Boolean) : [],
         stock: {},
         tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
-        rating: 0,
-        reviewCount: 0,
+        rating: Number(form.rating) || 5,
+        reviewCount: Number(form.reviewCount) || 1,
         isFeatured: form.isFeatured,
         isActive: form.isActive,
         isFlashSale: form.isFlashSale,
@@ -203,6 +205,16 @@ export default function NewProductPage() {
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tags (comma separated)</label>
               <input value={form.tags} onChange={e => setForm({...form, tags: e.target.value})}
                 placeholder="summer, casual"
+                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Rating (Out of 5.0)</label>
+              <input type="number" step="0.1" min="0" max="5" value={form.rating} onChange={e => setForm({...form, rating: e.target.value})}
+                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Total Reviews</label>
+              <input type="number" min="0" value={form.reviewCount} onChange={e => setForm({...form, reviewCount: e.target.value})}
                 className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
           </div>

@@ -57,7 +57,7 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!product || !reviewForm.text.trim()) return;
+    if (!product) return;
     setSubmittingReview(true);
     try {
       const newReview = await submitReview({
@@ -423,17 +423,6 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
                       ))}
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Your Review</label>
-                    <textarea 
-                      required
-                      rows={3}
-                      value={reviewForm.text}
-                      onChange={e => setReviewForm(prev => ({ ...prev, text: e.target.value }))}
-                      placeholder="Share your thoughts about this product..."
-                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                    />
-                  </div>
                   <button 
                     type="submit" 
                     disabled={submittingReview}
@@ -463,7 +452,6 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
                       </div>
                       <span className="text-xs font-medium text-gray-400">{new Date(rev.createdAt).toLocaleDateString()}</span>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed mt-2 whitespace-pre-wrap">{rev.reviewText}</p>
                   </div>
                 ))
               )}

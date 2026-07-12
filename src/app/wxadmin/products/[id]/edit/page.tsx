@@ -35,6 +35,8 @@ export default function AdminEditProductPage() {
     price: '',
     discountPrice: '',
     tags: '',
+    rating: '5.0',
+    reviewCount: '1',
     colors: '',
     isFeatured: false,
     isActive: true,
@@ -59,6 +61,8 @@ export default function AdminEditProductPage() {
           price: (p.price || '').toString(),
           discountPrice: p.discountPrice ? p.discountPrice.toString() : '',
           tags: (p.tags || []).join(', '),
+          rating: p.rating !== undefined ? p.rating.toString() : '5.0',
+          reviewCount: p.reviewCount !== undefined ? p.reviewCount.toString() : '1',
           colors: (p.colors || []).join(', '),
           isFeatured: !!p.isFeatured,
           isActive: !!p.isActive,
@@ -115,6 +119,8 @@ export default function AdminEditProductPage() {
         sizes: selectedSizes,
         colors: form.colors.split(',').map(c => c.trim()).filter(Boolean),
         tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
+        rating: Number(form.rating) || 5,
+        reviewCount: Number(form.reviewCount) || 1,
         isFeatured: form.isFeatured,
         isActive: form.isActive,
         isFlashSale: form.isFlashSale,
@@ -260,7 +266,17 @@ export default function AdminEditProductPage() {
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tags (Comma separated)</label>
               <input value={form.tags} onChange={e => setForm({...form, tags: e.target.value})}
-                placeholder="winter, casual, new"
+                placeholder="summer, casual"
+                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Rating (Out of 5.0)</label>
+              <input type="number" step="0.1" min="0" max="5" value={form.rating} onChange={e => setForm({...form, rating: e.target.value})}
+                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Total Reviews</label>
+              <input type="number" min="0" value={form.reviewCount} onChange={e => setForm({...form, reviewCount: e.target.value})}
                 className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
           </div>
