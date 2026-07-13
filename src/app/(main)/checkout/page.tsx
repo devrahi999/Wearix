@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { BD_LOCATIONS } from '@/constants/locations';
-import { ShoppingBag, ArrowRight, ShieldCheck, Check, AlertCircle, Loader2 } from 'lucide-react';
+import { ShoppingBag, ArrowRight, ShieldCheck, Check, AlertCircle, Loader2, Phone } from 'lucide-react';
 import { 
   getStoreSettings, type StoreSettings, 
   getCouponByCode, type Coupon, 
