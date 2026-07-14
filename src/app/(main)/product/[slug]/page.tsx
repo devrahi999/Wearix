@@ -101,8 +101,8 @@ export default async function ProductPage({ params }: Props) {
       {
         '@type': 'ListItem',
         position: 3,
-        name: product.category,
-        item: `${SITE_URL}/shop/${product.category}`,
+        name: product.categories?.[0] || product.category,
+        item: `${SITE_URL}/shop/${product.categories?.[0] || product.category}`,
       },
       {
         '@type': 'ListItem',

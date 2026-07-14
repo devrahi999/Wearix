@@ -6,6 +6,7 @@ export interface Product {
   slug: string;
   description: string;
   category: string;
+  categories?: string[];
   subcategory?: string;
   gender: Gender;
   price: number;

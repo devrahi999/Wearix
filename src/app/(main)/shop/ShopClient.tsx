@@ -63,7 +63,7 @@ export default function ShopClient() {
     // Filter by category
     if (selectedCategory !== 'all') {
       result = result.filter(
-        (p) => p.category.toLowerCase() === selectedCategory.toLowerCase()
+        (p) => p.category.toLowerCase() === selectedCategory.toLowerCase() || p.categories?.some(c => c.toLowerCase() === selectedCategory.toLowerCase())
       );
     }
 

@@ -45,8 +45,11 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
         setSelectedColor(p.colors[0] || null);
         setActiveImage(p.images[0] || '');
         // related products
-        getProducts({ category: p.category }).then(all => {
-          const related = all.filter(r => r.id !== p.id).slice(0, 4);
+        getProducts().then(all => {
+          const related = all.filter(r => 
+            r.id !== p.id && r.isActive && 
+            (r.category === p.category || (p.categories && r.categories?.some(c => p.categories!.includes(c))))
+          ).slice(0, 4);
           setRelatedProducts(related);
         });
         // reviews
@@ -154,8 +157,8 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
         <span>/</span>
         <Link href="/shop" className="hover:text-blue-600">Shop</Link>
         <span>/</span>
-        <Link href={`/shop/${product.category}`} className="hover:text-blue-600 capitalize">
-          {product.category}
+        <Link href={`/shop/${product.categories?.[0] || product.category}`} className="hover:text-blue-600 capitalize">
+          {product.categories?.[0] || product.category}
         </Link>
         <span>/</span>
         <span className="text-gray-600 truncate max-w-[200px]">{product.name}</span>
@@ -216,9 +219,11 @@ export default function ProductDetailClient({ initialSlug }: { initialSlug: stri
           <div className="space-y-4">
             <div>
               <div className="flex gap-2 items-center mb-2">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full">
-                  {product.category}
-                </span>
+                {(product.categories?.length ? product.categories : [product.category]).map(cat => (
+                  <Link key={cat} href={`/shop/${cat}`} className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full hover:bg-blue-100 transition">
+                    {cat}
+                  </Link>
+                ))}
                 {product.isFreeDelivery && (
                   <span className="text-xs font-bold text-green-700 uppercase tracking-wider bg-green-100 border border-green-200 px-2.5 py-1 rounded-full">
                     Free Delivery

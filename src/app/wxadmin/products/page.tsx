@@ -23,12 +23,13 @@ export default function AdminProductsPage() {
     });
   }, []);
 
-  const uniqueCategories = Array.from(new Set(products.map(p => p.category)));
+  const uniqueCategories = Array.from(new Set(products.flatMap(p => p.categories?.length ? p.categories : [p.category])));
 
   const filtered = products.filter(
     (p) => {
-      const matchesSearch = p.name.toLowerCase().includes(query.toLowerCase()) || p.category.toLowerCase().includes(query.toLowerCase());
-      const matchesCategory = filterCategory === 'All' || p.category === filterCategory;
+      const matchCatStr = p.categories ? p.categories.join(' ').toLowerCase() : p.category.toLowerCase();
+      const matchesSearch = p.name.toLowerCase().includes(query.toLowerCase()) || matchCatStr.includes(query.toLowerCase());
+      const matchesCategory = filterCategory === 'All' || p.category === filterCategory || p.categories?.includes(filterCategory);
       return matchesSearch && matchesCategory;
     }
   );
@@ -122,7 +123,7 @@ export default function AdminProductsPage() {
                         <span className="font-bold text-gray-900 line-clamp-1 max-w-[200px]">{product.name}</span>
                       </div>
                     </td>
-                    <td className="py-3.5 capitalize">{product.category}</td>
+                    <td className="py-3.5 capitalize">{product.categories?.length ? product.categories.join(', ') : product.category}</td>
                     <td className="py-3.5">{formatPrice(product.price)}</td>
                     <td className="py-3.5 text-red-600 font-semibold">
                       {product.discountPrice ? formatPrice(product.discountPrice) : '-'}

@@ -45,7 +45,18 @@ export default function NewProductPage() {
     isOutOfStock: false,
     isFullCodEnabled: false,
     isFreeDelivery: false,
+    discountPercent: '',
   });
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  const handleCategoryToggle = (cat: string) => {
+    if (selectedCategories.includes(cat)) {
+      setSelectedCategories(prev => prev.filter(c => c !== cat));
+    } else {
+      setSelectedCategories(prev => [...prev, cat]);
+    }
+  };
 
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
@@ -78,6 +89,7 @@ export default function NewProductPage() {
     setError('');
     if (!images.length) { setError('Please upload at least one product image.'); return; }
     if (!selectedSizes.length) { setError('Please select at least one size.'); return; }
+    if (!selectedCategories.length) { setError('Please select at least one category.'); return; }
     setSaving(true);
     try {
       const productSlug = form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -85,7 +97,8 @@ export default function NewProductPage() {
         name: form.name,
         slug: productSlug,
         description: form.description,
-        category: form.category,
+        category: selectedCategories[0] || '',
+        categories: selectedCategories,
         gender: form.gender,
         price: Number(form.price),
         discountPrice: form.discountPrice ? Number(form.discountPrice) : null,
@@ -173,13 +186,25 @@ export default function NewProductPage() {
               <textarea required rows={3} value={form.description} onChange={e => setForm({...form, description: e.target.value})}
                 className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" />
             </div>
-            <div>
-              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Category *</label>
-              <select required value={form.category} onChange={e => setForm({...form, category: e.target.value})}
-                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Select category</option>
-                {categories.map(c => <option key={c.id} value={c.slug}>{c.name}</option>)}
-              </select>
+            <div className="sm:col-span-2">
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Categories *</label>
+              <div className="flex flex-wrap gap-2">
+                {categories.map(c => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => handleCategoryToggle(c.slug)}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                      selectedCategories.includes(c.slug)
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-blue-400'
+                    }`}
+                  >
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+              {selectedCategories.length === 0 && <p className="text-xs text-red-500 mt-1">Select at least one category.</p>}
             </div>
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Gender</label>
@@ -198,13 +223,22 @@ export default function NewProductPage() {
             </div>
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Sale Price (optional)</label>
-              <input type="number" min="0" value={form.discountPrice} onChange={e => setForm({...form, discountPrice: e.target.value})}
+              <input type="number" min="0" value={form.discountPrice} onChange={e => {
+                const dp = Number(e.target.value);
+                const p = Number(form.price);
+                setForm({...form, discountPrice: e.target.value, discountPercent: dp > 0 && p > 0 ? Math.round(((p - dp) / p) * 100).toString() : ''});
+              }}
                 className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              {Number(form.price) > 0 && Number(form.discountPrice) > 0 && Number(form.discountPrice) < Number(form.price) && (
-                <p className="text-xs text-green-600 mt-1.5 font-bold">
-                  {Math.round(((Number(form.price) - Number(form.discountPrice)) / Number(form.price)) * 100)}% Off
-                </p>
-              )}
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Discount Percent (%)</label>
+              <input type="number" min="0" max="100" value={form.discountPercent} onChange={e => {
+                const pct = Number(e.target.value);
+                const p = Number(form.price);
+                setForm({...form, discountPercent: e.target.value, discountPrice: pct > 0 && p > 0 ? Math.round(p - (p * pct / 100)).toString() : ''});
+              }}
+                placeholder="e.g. 10"
+                className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Colors (comma separated)</label>

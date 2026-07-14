@@ -24,6 +24,7 @@ function SearchForm() {
         p.name.toLowerCase().includes(normalized) ||
         p.description.toLowerCase().includes(normalized) ||
         p.category.toLowerCase().includes(normalized) ||
+        p.categories?.some(c => c.toLowerCase().includes(normalized)) ||
         p.tags.some((t) => t.toLowerCase().includes(normalized))
     );
   }, [query, allProducts]);

@@ -27,9 +27,13 @@ export default function CategoryClient({ categorySlug }: { categorySlug: string 
       setCategoryInfo(catInfo || null);
       
       if (catInfo) {
-        setAllProducts(activeProds.filter(p => p.category === catInfo.slug || p.category === catInfo.name || p.category.toLowerCase() === categorySlug.toLowerCase()));
+        setAllProducts(activeProds.filter(p => {
+          const matchPrimary = p.category === catInfo.slug || p.category === catInfo.name || p.category.toLowerCase() === categorySlug.toLowerCase();
+          const matchSecondary = p.categories?.some(c => c === catInfo.slug || c === catInfo.name || c.toLowerCase() === categorySlug.toLowerCase());
+          return matchPrimary || matchSecondary;
+        }));
       } else {
-        setAllProducts(activeProds.filter(p => p.category.toLowerCase() === categorySlug.toLowerCase()));
+        setAllProducts(activeProds.filter(p => p.category.toLowerCase() === categorySlug.toLowerCase() || p.categories?.some(c => c.toLowerCase() === categorySlug.toLowerCase())));
       }
       setDbLoading(false);
     });
