@@ -32,7 +32,7 @@ export default function ProductProfitsPage() {
     
     // Filter orders based on time
     const filteredOrders = orders.filter(o => {
-      if (o.orderStatus === 'cancelled' || o.orderStatus === 'failed') return false;
+      if (o.orderStatus === 'cancelled') return false;
       if (timeFilter === 'all') return true;
       
       const orderDate = new Date(o.createdAt);
