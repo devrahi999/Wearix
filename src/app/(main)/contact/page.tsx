@@ -98,8 +98,8 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold text-gray-900">Email Support</p>
-                  <a href={`mailto:${settings?.email || 'hello@wearix.com.bd'}`} className="hover:text-blue-600 transition-colors">
-                    {settings?.email || 'hello@wearix.com.bd'}
+                  <a href={`mailto:${settings?.email || 'help.wearix@gmail.com'}`} className="hover:text-blue-600 transition-colors">
+                    {settings?.email || 'help.wearix@gmail.com'}
                   </a>
                 </div>
               </div>

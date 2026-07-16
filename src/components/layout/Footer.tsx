@@ -87,7 +87,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Mail className="w-4 h-4 text-blue-400 shrink-0" />
-                <a href={`mailto:${settings?.email || 'hello@wearix.com.bd'}`} className="hover:text-white transition-colors">{settings?.email || 'hello@wearix.com.bd'}</a>
+                <a href={`mailto:${settings?.email || 'help.wearix@gmail.com'}`} className="hover:text-white transition-colors">{settings?.email || 'help.wearix@gmail.com'}</a>
               </div>
             </div>
           </div>
