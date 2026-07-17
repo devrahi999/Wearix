@@ -26,11 +26,18 @@ export async function sendOrderReceiptEmail(order: Order) {
     day: 'numeric',
   });
 
+  const getImageUrl = (url: string) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    if (url.startsWith('/')) return `https://wearixbd.store${url}`;
+    return `https://wearixbd.store/${url}`;
+  };
+
   const itemsHtml = order.items.map(item => `
     <tr>
       <td style="padding: 12px; border-bottom: 1px solid #eeeeee;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          ${item.productImage ? `<img src="${item.productImage}" alt="${item.productName}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" />` : ''}
+          ${item.productImage ? `<img src="${getImageUrl(item.productImage)}" alt="${item.productName}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" />` : ''}
           <div>
             <p style="margin: 0; font-weight: bold; color: #111827;">${item.productName}</p>
             ${item.size ? `<p style="margin: 2px 0 0; font-size: 12px; color: #6b7280;">Size: ${item.size}</p>` : ''}
