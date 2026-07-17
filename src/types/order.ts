@@ -17,6 +17,7 @@ export interface OrderItem {
 export interface ShippingAddress {
   fullName: string;
   phone: string;
+  email?: string;
   division: string;
   district: string;
   area: string;
@@ -36,6 +37,9 @@ export interface Order {
   customerName?: string;
   email?: string;
   phone?: string;
+  sendReceipt?: boolean;
+  telegramAlertSent?: boolean;
+  zinipayInvoiceId?: string;
   items: OrderItem[];
   shippingAddress: ShippingAddress;
   paymentMethod: PaymentMethod;

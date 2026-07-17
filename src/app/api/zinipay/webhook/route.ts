@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
-import type { PaymentStatus } from '@/types/order';
+import type { PaymentStatus, Order } from '@/types/order';
 import { sendTelegramOrderAlert } from '@/lib/telegram';
+import { sendOrderReceiptEmail } from '@/lib/email';
 
 export async function POST(req: Request) {
   return handleWebhook(req);
@@ -77,6 +78,12 @@ async function handleWebhook(req: Request) {
     
     // Send Telegram alert
     await sendTelegramOrderAlert(orderId, type || 'online');
+
+    // Send email receipt if opted in
+    const orderData = orderDoc.data() as Order;
+    if (orderData.sendReceipt && orderData.email) {
+      await sendOrderReceiptEmail(orderData);
+    }
 
     return NextResponse.json({ status: 'success' }, { status: 200 });
   } catch (err) {

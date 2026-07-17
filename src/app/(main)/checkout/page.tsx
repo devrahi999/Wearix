@@ -40,11 +40,19 @@ function CheckoutForm() {
     return {
       fullName: '',
       phone: '',
+      email: '',
+      sendReceipt: false,
       district: defaultDist,
       area: defaultArea,
       addressLine: '',
     };
   });
+
+  useEffect(() => {
+    if (user?.email && !form.email) {
+      setForm(prev => ({ ...prev, email: user.email! }));
+    }
+  }, [user]);
 
   const availableDistricts = Object.keys(BD_LOCATIONS).sort();
   const availableAreas = BD_LOCATIONS[form.district] || ['Other'];
@@ -199,10 +207,12 @@ function CheckoutForm() {
         userId: user?.uid || 'guest',
         customerName: form.fullName,
         phone: form.phone,
-        email: user?.email || '',
+        email: form.email,
+        sendReceipt: form.sendReceipt,
         shippingAddress: {
           fullName: form.fullName, // Backwards compatibility
           phone: form.phone,       // Backwards compatibility
+          email: form.email,
           addressLine: form.addressLine,
           area: form.area,
           district: form.district,
@@ -379,6 +389,23 @@ function CheckoutForm() {
                   placeholder="e.g. House 12, Road 4, Block C, Banani"
                   className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">
+                  Email Address
+                </label>
+                <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="e.g. user@example.com"
+                  className="w-full border border-gray-200 px-3.5 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                
+                <label className="flex items-center gap-2 mt-3 cursor-pointer">
+                  <input type="checkbox" checked={form.sendReceipt} onChange={(e) => setForm({ ...form, sendReceipt: e.target.checked })} 
+                    className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                  />
+                  <span className="text-sm font-medium text-gray-700">Get order receipt in email?</span>
+                </label>
               </div>
             </div>
           </div>

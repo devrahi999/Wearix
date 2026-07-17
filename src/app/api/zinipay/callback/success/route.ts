@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
-import type { PaymentStatus } from '@/types/order';
+import type { PaymentStatus, Order } from '@/types/order';
 import { sendTelegramOrderAlert } from '@/lib/telegram';
+import { sendOrderReceiptEmail } from '@/lib/email';
 
 export async function GET(req: Request) {
   return handleRequest(req);
@@ -67,6 +68,12 @@ async function handleRequest(req: Request) {
     
     // Send Telegram alert
     await sendTelegramOrderAlert(orderId, type || 'online');
+
+    // Send email receipt if opted in
+    const orderData = orderDoc.data() as Order;
+    if (orderData.sendReceipt && orderData.email) {
+      await sendOrderReceiptEmail(orderData);
+    }
 
     return NextResponse.redirect(new URL(`/order-confirmation/${orderId}?source=${source}`, req.url), 303);
   } catch (err) {
