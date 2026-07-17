@@ -1,4 +1,4 @@
-export const SITE_NAME = 'Wearix';
+export const SITE_NAME = 'WearixBD';
 export const SITE_TAGLINE = 'Wear Your Style';
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://wearixbd.store';
 export const SITE_URL = rawSiteUrl.startsWith('http') ? rawSiteUrl : `https://${rawSiteUrl}`;

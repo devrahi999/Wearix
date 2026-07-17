@@ -48,7 +48,7 @@ export default function AccountDashboard() {
           <UserIcon className="w-10 h-10" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{user.displayName || 'Wearix User'}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{user.displayName || 'WearixBD User'}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{user.email}</p>
         </div>
       </div>

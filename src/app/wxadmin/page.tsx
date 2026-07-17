@@ -108,7 +108,7 @@ export default function AdminDashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Dashboard Analytics</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Comprehensive overview of Wearix performance.</p>
+          <p className="text-xs text-gray-500 mt-0.5">Comprehensive overview of WearixBD performance.</p>
         </div>
         <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-gray-100 shadow-sm">
           {[

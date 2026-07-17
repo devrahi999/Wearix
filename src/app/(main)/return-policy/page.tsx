@@ -3,7 +3,7 @@ export default function ReturnPolicyPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-6">
       <div className="border-b border-gray-150 pb-5">
         <h1 className="text-3xl font-extrabold text-gray-900">Return & Refund Policy</h1>
-        <p className="text-gray-500 text-sm mt-1">At Wearix, customer satisfaction is our priority. Please read our Return & Refund Policy carefully before placing an order.</p>
+        <p className="text-gray-500 text-sm mt-1">At WearixBD, customer satisfaction is our priority. Please read our Return & Refund Policy carefully before placing an order.</p>
       </div>
 
       <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm space-y-6 text-sm text-gray-600 leading-relaxed text-justify">
@@ -45,7 +45,7 @@ export default function ReturnPolicyPage() {
           <ul className="list-disc pl-5 space-y-2">
             <li>Product colors may vary slightly due to lighting, photography, or screen settings.</li>
             <li>Please review the size chart carefully before placing your order. Returns due to incorrect size selection by the customer may not qualify for free return shipping.</li>
-            <li>Wearix operates as an online retail platform and fulfills orders through trusted supply partners. All return and refund requests are processed according to our quality inspection and fulfillment policies.</li>
+            <li>WearixBD operates as an online retail platform and fulfills orders through trusted supply partners. All return and refund requests are processed according to our quality inspection and fulfillment policies.</li>
           </ul>
         </div>
 

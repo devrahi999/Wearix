@@ -12,7 +12,7 @@ const testimonials = [
     name: 'Nusrat Jahan',
     location: 'Chittagong',
     rating: 5,
-    text: 'Bought 3 kurtis last month. All of them are great quality and the colors are vibrant. bKash payment was super easy. Highly recommend Wearix!',
+    text: 'Bought 3 kurtis last month. All of them are great quality and the colors are vibrant. bKash payment was super easy. Highly recommend WearixBD!',
     avatar: 'NJ',
   },
   {
@@ -26,7 +26,7 @@ const testimonials = [
     name: 'Fatema Begum',
     location: 'Rajshahi',
     rating: 5,
-    text: 'The hoodie is so comfortable for winter. Cash on delivery option made me feel safe to order. Very happy with my purchase from Wearix!',
+    text: 'The hoodie is so comfortable for winter. Cash on delivery option made me feel safe to order. Very happy with my purchase from WearixBD!',
     avatar: 'FB',
   },
 ];

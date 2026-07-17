@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     
     const payload = {
       cus_name: 'Customer',
-      cus_email: 'customer@wearix.com',
+      cus_email: 'customer@wearixbd.com',
       amount: Number(amount),
       metadata: {
         order_id: orderId,

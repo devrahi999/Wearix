@@ -29,10 +29,10 @@ export default function RegisterPage() {
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="relative w-32 h-12 mx-auto">
-            <Image src="/logo.png" alt="Wearix" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain" priority />
+            <Image src="/logo.png" alt="WearixBD" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain" priority />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mt-3">Create Account</h1>
-          <p className="text-sm text-gray-500">Create a Wearix account to track your orders in real-time.</p>
+          <p className="text-sm text-gray-500">Create a WearixBD account to track your orders in real-time.</p>
         </div>
 
         {/* Google OAuth Register */}

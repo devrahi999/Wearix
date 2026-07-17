@@ -79,9 +79,9 @@ function AuthForm() {
         <div className="flex justify-center mb-8">
           <Link href="/" className="flex items-center gap-3 bg-white rounded-2xl px-6 py-3 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
             <div className="relative w-10 h-10">
-              <Image src="/logo.png" alt="Wearix" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain" />
+              <Image src="/logo.png" alt="WearixBD" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain" />
             </div>
-            <span className="text-2xl font-black text-gray-900 tracking-tight">Wearix</span>
+            <span className="text-2xl font-black text-gray-900 tracking-tight">WearixBD</span>
           </Link>
         </div>
 
@@ -94,8 +94,8 @@ function AuthForm() {
               {mode === 'forgot' && 'Reset Password'}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              {mode === 'login' && 'Sign in to your Wearix account'}
-              {mode === 'register' && 'Join Wearix and start shopping'}
+              {mode === 'login' && 'Sign in to your WearixBD account'}
+              {mode === 'register' && 'Join WearixBD and start shopping'}
               {mode === 'forgot' && "We'll send you a reset link"}
             </p>
           </div>

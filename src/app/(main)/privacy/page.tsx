@@ -3,7 +3,7 @@ export default function PrivacyPolicyPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-6">
       <div className="border-b border-gray-150 pb-5">
         <h1 className="text-3xl font-extrabold text-gray-900">Privacy Policy</h1>
-        <p className="text-gray-500 text-sm mt-1">At Wearix, we respect your privacy and are committed to protecting your personal information.</p>
+        <p className="text-gray-500 text-sm mt-1">At WearixBD, we respect your privacy and are committed to protecting your personal information.</p>
       </div>
 
       <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm space-y-6 text-sm text-gray-600 leading-relaxed text-justify">

@@ -46,7 +46,7 @@ export default function OrderConfirmationPage() {
   });
 
   const whatsappMessage = encodeURIComponent(
-    `Hi Wearix! I just placed an order. Order ID: ${orderId}. Please confirm it.`
+    `Hi WearixBD! I just placed an order. Order ID: ${orderId}. Please confirm it.`
   );
 
   return (
@@ -107,7 +107,7 @@ export default function OrderConfirmationPage() {
             <div>
               <p className="text-sm font-bold text-gray-600">Packaging & Dispatch</p>
               <p className="text-xs text-gray-400 mt-0.5">
-                Apparel will be steam-ironed, barcoded, and bagged in premium Wearix poly envelopes.
+                Apparel will be steam-ironed, barcoded, and bagged in premium WearixBD poly envelopes.
               </p>
             </div>
           </div>

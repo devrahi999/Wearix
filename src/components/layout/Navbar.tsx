@@ -3,6 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Outfit } from 'next/font/google';
+
+const stylishFont = Outfit({ 
+  subsets: ['latin'], 
+  weight: ['800'] 
+});
 import Image from 'next/image';
 import {
   Heart, Search, Menu, X, ChevronDown, User, LogOut, Settings, Package
@@ -82,7 +88,9 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <span className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">{SITE_NAME}</span>
+            <span className={`text-xl md:text-2xl font-extrabold text-gray-900 tracking-tight ${stylishFont.className}`} style={{ background: 'linear-gradient(to right, #111827, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              {SITE_NAME}
+            </span>
           </Link>
 
           {/* Right: Actions (Search, Wishlist) */}

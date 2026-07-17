@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 export default function FAQPage() {
   const faqs = [
     {
-      q: 'What are the delivery charges at Wearix?',
+      q: 'What are the delivery charges at WearixBD?',
       a: 'We charge a flat fee of ৳60 for deliveries inside Dhaka and ৳120 for deliveries outside Dhaka. Enjoy FREE shipping inside Dhaka for orders above ৳1,500.',
     },
     {

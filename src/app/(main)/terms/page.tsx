@@ -5,7 +5,7 @@ export default function TermsConditionsPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-6">
       <div className="border-b border-gray-150 pb-5">
         <h1 className="text-3xl font-extrabold text-gray-900">Terms & Conditions</h1>
-        <p className="text-gray-500 text-sm mt-1">Welcome to Wearix. By accessing or using our website, you agree to the following Terms & Conditions.</p>
+        <p className="text-gray-500 text-sm mt-1">Welcome to WearixBD. By accessing or using our website, you agree to the following Terms & Conditions.</p>
       </div>
 
       <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm space-y-6 text-sm text-gray-600 leading-relaxed text-justify">
@@ -62,12 +62,12 @@ export default function TermsConditionsPage() {
             <li>Text</li>
             <li>Design</li>
           </ul>
-          <p>is the property of Wearix and may not be copied, reproduced, or distributed without permission.</p>
+          <p>is the property of WearixBD and may not be copied, reproduced, or distributed without permission.</p>
         </div>
 
         <div className="pt-4 border-t border-gray-100">
           <h3 className="font-bold text-gray-900 text-lg mb-3">Limitation of Liability</h3>
-          <p>Wearix shall not be liable for indirect or consequential damages resulting from the use of our website or products.</p>
+          <p>WearixBD shall not be liable for indirect or consequential damages resulting from the use of our website or products.</p>
         </div>
 
         <div className="pt-4 border-t border-gray-100">
@@ -82,7 +82,7 @@ export default function TermsConditionsPage() {
           <ul className="space-y-1">
             <li><strong>Email:</strong> help.wearix@gmail.com</li>
             <li><strong>Phone/WhatsApp:</strong> +8801987212011</li>
-            <li><strong>Facebook Page:</strong> Wearix</li>
+            <li><strong>Facebook Page:</strong> WearixBD</li>
           </ul>
         </div>
 

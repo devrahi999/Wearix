@@ -103,7 +103,7 @@ export default function HomeClient({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-6">
         <div className="bg-white/60 backdrop-blur-sm border border-gray-100 rounded-2xl p-4 md:p-6 text-center shadow-sm">
           <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
-            <strong className="text-gray-900 font-bold">Wearix</strong> is an online fashion store in Bangladesh offering premium-quality apparel, including polo shirts, t-shirts, shirts, panjabi, hoodies, pants, and more.
+            <strong className="text-gray-900 font-bold">WearixBD</strong> is an online fashion store in Bangladesh offering premium-quality apparel, including polo shirts, t-shirts, shirts, panjabi, hoodies, pants, and more.
           </p>
         </div>
       </div>

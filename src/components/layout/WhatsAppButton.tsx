@@ -16,7 +16,7 @@ export default function WhatsAppButton() {
     });
   }, []);
 
-  const message = encodeURIComponent('Hi Wearix! I need help with my order.');
+  const message = encodeURIComponent('Hi WearixBD! I need help with my order.');
 
   if (pathname !== '/') return null;
 
