@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, ShoppingCart, Star, ShieldCheck, Truck, RefreshCw, AlertCircle, Check, Loader2 } from 'lucide-react';
-import { getProductBySlug, getProducts, getReviewsByProduct, submitReview, listenToPromotionSettings, type ProductReview, type PromotionSettings } from '@/lib/db';
+import { getProductBySlug, getProducts, getReviewsByProduct, submitReview, listenToCampaigns, type ProductReview, type Campaign } from '@/lib/db';
 import type { Product } from '@/types/product';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
@@ -88,10 +88,10 @@ export default function ProductDetailClient({
   const [addedNotify, setAddedNotify] = useState(false);
   const [submittingReview, setSubmittingReview] = useState(false);
   const [reviewForm, setReviewForm] = useState({ rating: 5, text: '' });
-  const [promotions, setPromotions] = useState<PromotionSettings | null>(null);
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
   useEffect(() => {
-    const unsub = listenToPromotionSettings(setPromotions);
+    const unsub = listenToCampaigns(setCampaigns);
     return () => unsub();
   }, []);
 
@@ -335,18 +335,16 @@ export default function ProductDetailClient({
             </div>
 
             {/* Promotional Badges */}
-            {promotions && (
+            {campaigns.length > 0 && (
               <div className="space-y-2 py-1">
-                {isPromotionActive(promotions.buyMoreEnabled, promotions.buyMoreStartDate, promotions.buyMoreEndDate) && (
-                  <div className="bg-red-50 text-red-700 text-xs font-bold px-3 py-2 rounded-lg border border-red-100 flex items-center gap-2">
-                    <span className="text-sm">🔥</span> {promotions.buyMoreTitle} - {promotions.buyMoreDesc}
-                  </div>
-                )}
-                {isPromotionActive(promotions.freeDeliveryEnabled, promotions.freeDeliveryStartDate, promotions.freeDeliveryEndDate) && (
-                  <div className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-2 rounded-lg border border-emerald-100 flex items-center gap-2">
-                    <span className="text-sm">🚚</span> {promotions.freeDeliveryTitle} - {promotions.freeDeliveryDesc}
-                  </div>
-                )}
+                {campaigns
+                  .filter(c => c.isActive && isPromotionActive(true, c.startDate, c.endDate))
+                  .filter(c => !c.categories || c.categories.length === 0 || (product && c.categories.includes(product.category)))
+                  .map(campaign => (
+                    <div key={campaign.id} className={`text-xs font-bold px-3 py-2 rounded-lg border flex items-center gap-2 ${campaign.type === 'buy_more' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-emerald-50 text-emerald-700 border-emerald-100'}`}>
+                      <span className="text-sm">{campaign.type === 'buy_more' ? '🔥' : '🚚'}</span> {campaign.title} - {campaign.description}
+                    </div>
+                ))}
               </div>
             )}
 
