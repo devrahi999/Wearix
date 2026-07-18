@@ -614,7 +614,18 @@ export async function getBlogs() {
 }
 
 export async function getBlogBySlug(slug: string) {
-  const q = query(collection(db, 'blogs'), where('slug', '==', slug));
+  // Decode slug in case it's URL-encoded
+  const decodedSlug = decodeURIComponent(slug);
+  
+  // First try direct lookup (new format)
+  let ref = doc(db, 'blogs', decodedSlug);
+  let snap = await getDoc(ref);
+  if (snap.exists()) {
+    return { id: snap.id, ...snap.data() } as Blog;
+  }
+  
+  // Fallback to query (old format with random ID)
+  const q = query(collection(db, 'blogs'), where('slug', '==', decodedSlug));
   const snapshot = await getDocs(q);
   if (snapshot.empty) return null;
   const d = snapshot.docs[0];
@@ -622,9 +633,13 @@ export async function getBlogBySlug(slug: string) {
 }
 
 export async function createBlog(data: Omit<Blog, 'id'>) {
-  const ref = doc(collection(db, 'blogs'));
-  await setDoc(ref, data);
-  return { id: ref.id, ...data } as Blog;
+  // Sanitize slug
+  const cleanSlug = data.slug.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const finalData = { ...data, slug: cleanSlug };
+  
+  const ref = doc(db, 'blogs', cleanSlug);
+  await setDoc(ref, finalData);
+  return { id: ref.id, ...finalData } as Blog;
 }
 
 export async function updateBlog(id: string, data: Partial<Blog>) {
