@@ -13,6 +13,7 @@ export interface CartItem {
   slug: string;
   isFullCodEnabled?: boolean;
   isFreeDelivery?: boolean;
+  category?: string;
 }
 
 interface CartStore {

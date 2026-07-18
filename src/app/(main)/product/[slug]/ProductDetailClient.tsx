@@ -181,6 +181,7 @@ export default function ProductDetailClient({
       slug: product.slug,
       isFullCodEnabled: product.isFullCodEnabled,
       isFreeDelivery: product.isFreeDelivery,
+      category: product.category,
     });
     setAddedNotify(true);
     setTimeout(() => setAddedNotify(false), 3000);
@@ -204,6 +205,7 @@ export default function ProductDetailClient({
       slug: product.slug,
       isFullCodEnabled: product.isFullCodEnabled,
       isFreeDelivery: product.isFreeDelivery,
+      category: product.category,
     });
     router.push('/checkout?buyNow=true');
   };

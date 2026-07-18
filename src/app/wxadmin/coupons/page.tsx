@@ -141,14 +141,15 @@ export default function AdminCouponsPage() {
                   className="w-full border border-gray-200 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="percent">Percentage (%)</option>
                   <option value="fixed">Fixed Amount (৳)</option>
+                  <option value="free_delivery">Free Delivery</option>
                 </select>
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">
-                  Discount Value ({form.discountType === 'percent' ? '%' : '৳'})
+                  Discount Value ({form.discountType === 'percent' ? '%' : form.discountType === 'fixed' ? '৳' : 'N/A'})
                 </label>
-                <input type="number" min="0" required value={form.discountValue} onChange={e => setForm(prev => ({ ...prev, discountValue: Number(e.target.value) }))}
-                  className="w-full border border-gray-200 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="number" min="0" required={form.discountType !== 'free_delivery'} disabled={form.discountType === 'free_delivery'} value={form.discountType === 'free_delivery' ? 0 : form.discountValue} onChange={e => setForm(prev => ({ ...prev, discountValue: Number(e.target.value) }))}
+                  className="w-full border border-gray-200 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:bg-gray-100" />
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Min Order Amount (৳)</label>
@@ -326,7 +327,7 @@ export default function AdminCouponsPage() {
                         <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded-md">{c.code}</span>
                       </td>
                       <td className="py-3 font-semibold text-gray-900">
-                        {c.discountType === 'percent' ? `${c.discountValue}%` : `৳${c.discountValue}`}
+                        {c.discountType === 'free_delivery' ? 'Free Delivery' : c.discountType === 'percent' ? `${c.discountValue}%` : `৳${c.discountValue}`}
                       </td>
                       <td className="py-3">৳{c.minOrderAmount}</td>
                       <td className="py-3">
@@ -391,7 +392,7 @@ export default function AdminCouponsPage() {
                 <div className="bg-gray-50 p-4 rounded-xl">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Discount</p>
                   <p className="font-bold text-gray-900">
-                    {selectedCoupon.discountType === 'percent' ? `${selectedCoupon.discountValue}%` : `৳${selectedCoupon.discountValue}`}
+                    {selectedCoupon.discountType === 'free_delivery' ? 'Free Delivery' : selectedCoupon.discountType === 'percent' ? `${selectedCoupon.discountValue}%` : `৳${selectedCoupon.discountValue}`}
                   </p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-xl">

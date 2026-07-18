@@ -303,7 +303,7 @@ export async function updateFlashSaleConfig(data: FlashSaleConfig) {
 export interface Coupon {
   id: string;
   code: string;
-  discountType: 'percent' | 'fixed';
+  discountType: 'percent' | 'fixed' | 'free_delivery';
   discountValue: number;
   minOrderAmount: number;
   isActive: boolean;
@@ -443,57 +443,49 @@ export async function updateMarketingSettings(data: MarketingSettings) {
 }
 
 // ─── PROMOTION SETTINGS ──────────────────────────────────────────────────────
-export interface PromotionSettings {
-  buyMoreEnabled: boolean;
-  buyMoreMinQty: number;
-  buyMoreDiscountPct: number;
-  buyMoreTitle: string;
-  buyMoreDesc: string;
-  buyMoreStartDate: string;
-  buyMoreEndDate: string;
+// ─── CAMPAIGNS ───────────────────────────────────────────────────────────────
+export type CampaignType = 'buy_more' | 'free_delivery';
 
-  freeDeliveryEnabled: boolean;
-  freeDeliveryMinOrder: number;
-  freeDeliveryTitle: string;
-  freeDeliveryDesc: string;
-  freeDeliveryStartDate: string;
-  freeDeliveryEndDate: string;
+export interface Campaign {
+  id: string;
+  type: CampaignType;
+  title: string;
+  description: string;
+  isActive: boolean;
+  minQty?: number;
+  discountPct?: number;
+  minOrderAmount?: number;
+  categories: string[]; 
+  startDate: string;
+  endDate: string;
+  createdAt: number;
 }
 
-const defaultPromotions: PromotionSettings = {
-  buyMoreEnabled: false,
-  buyMoreMinQty: 2,
-  buyMoreDiscountPct: 5,
-  buyMoreTitle: 'Buy More & Save More',
-  buyMoreDesc: 'Buy 2 or more items and get an extra 5% OFF.',
-  buyMoreStartDate: '',
-  buyMoreEndDate: '',
-
-  freeDeliveryEnabled: false,
-  freeDeliveryMinOrder: 1499,
-  freeDeliveryTitle: 'Free Delivery',
-  freeDeliveryDesc: 'Free delivery on orders above ৳1499.',
-  freeDeliveryStartDate: '',
-  freeDeliveryEndDate: '',
-};
-
-export async function getPromotionSettings(): Promise<PromotionSettings> {
-  const snap = await getDoc(doc(db, 'config', 'promotions'));
-  if (!snap.exists()) return defaultPromotions;
-  return { ...defaultPromotions, ...snap.data() };
+export async function getCampaigns(): Promise<Campaign[]> {
+  const snapshot = await getDocs(collection(db, 'campaigns'));
+  return snapshot.docs.map(d => ({ id: d.id, ...d.data() } as Campaign));
 }
 
-export async function updatePromotionSettings(data: PromotionSettings) {
-  await setDoc(doc(db, 'config', 'promotions'), data);
+export async function saveCampaign(data: Omit<Campaign, 'id' | 'createdAt'>): Promise<Campaign> {
+  const newCampaign = {
+    ...data,
+    createdAt: Date.now()
+  };
+  const docRef = await addDoc(collection(db, 'campaigns'), newCampaign);
+  return { id: docRef.id, ...newCampaign } as Campaign;
 }
 
-export function listenToPromotionSettings(callback: (data: PromotionSettings) => void) {
-  return onSnapshot(doc(db, 'config', 'promotions'), (snap) => {
-    if (snap.exists()) {
-      callback({ ...defaultPromotions, ...snap.data() } as PromotionSettings);
-    } else {
-      callback(defaultPromotions);
-    }
+export async function updateCampaign(id: string, data: Partial<Campaign>) {
+  await updateDoc(doc(db, 'campaigns', id), data);
+}
+
+export async function deleteCampaign(id: string) {
+  await deleteDoc(doc(db, 'campaigns', id));
+}
+
+export function listenToCampaigns(callback: (data: Campaign[]) => void) {
+  return onSnapshot(collection(db, 'campaigns'), (snapshot) => {
+    callback(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as Campaign)));
   });
 }
 

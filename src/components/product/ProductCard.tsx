@@ -41,6 +41,7 @@ export default function ProductCard({ product, isFlashSalePage }: ProductCardPro
         discountPrice: product.discountPrice,
         quantity: 1,
         slug: product.slug,
+        category: product.category,
       });
     }
   };

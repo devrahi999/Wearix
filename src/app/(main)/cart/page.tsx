@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { Trash2, ShoppingBag, ArrowRight, Check, AlertCircle, TrendingUp, Truck } from 'lucide-react';
-import { getStoreSettings, type StoreSettings, listenToPromotionSettings, type PromotionSettings } from '@/lib/db';
+import { getStoreSettings, type StoreSettings, listenToCampaigns, type Campaign } from '@/lib/db';
 import { calculateBuyMoreDiscount, calculateFreeDelivery } from '@/lib/promotions';
 
 function CartPageContent() {
@@ -18,21 +18,19 @@ function CartPageContent() {
   const isCancelled = searchParams.get('cancel') === 'true';
 
   const [settings, setSettings] = useState<StoreSettings | null>(null);
-  const [promotions, setPromotions] = useState<PromotionSettings | null>(null);
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
   useEffect(() => {
     getStoreSettings().then(setSettings);
-    const unsub = listenToPromotionSettings(setPromotions);
+    const unsub = listenToCampaigns(setCampaigns);
     return () => unsub();
   }, []);
 
-  const totalItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  
-  const buyMoreResult = calculateBuyMoreDiscount(discountedSubtotal, totalItemsCount, promotions);
+  const buyMoreResult = calculateBuyMoreDiscount(items, campaigns);
   const subtotalAfterDiscounts = discountedSubtotal - buyMoreResult.discountAmount;
 
   const hasFreeDeliveryProduct = items.some(item => item.isFreeDelivery);
-  const freeDeliveryResult = calculateFreeDelivery(subtotalAfterDiscounts, promotions, hasFreeDeliveryProduct);
+  const freeDeliveryResult = calculateFreeDelivery(items, subtotalAfterDiscounts, campaigns, hasFreeDeliveryProduct);
 
   const shippingFee = freeDeliveryResult.isFreeDelivery ? 0 : (settings?.defaultDeliveryCharge || 0);
   const total = Math.max(0, subtotalAfterDiscounts + shippingFee);
