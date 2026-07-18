@@ -94,13 +94,13 @@ export default function RootLayout({
             ])
           }}
         />
+        <MetaPixel />
       </head>
       <body className={`${inter.variable} font-sans bg-gray-50 text-gray-900 selection:bg-blue-100`}>
         <AuthProvider>
           {children}
         </AuthProvider>
         <Toaster position="top-center" />
-        <MetaPixel />
         <GoogleAnalytics />
       </body>
     </html>
