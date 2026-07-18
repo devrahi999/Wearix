@@ -19,9 +19,11 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const fileName = formData.get('fileName') as string;
-    const slug = formData.get('slug') as string;
-    const publicId = slug || fileName ? (slug || fileName).split('.')[0] : undefined;
+    const fileName = formData.get('fileName') as string | null;
+    const slug = formData.get('slug') as string | null;
+    let publicId = undefined;
+    if (slug) publicId = slug.split('.')[0];
+    else if (fileName) publicId = fileName.split('.')[0];
 
     const uploadOptions: any = { folder: 'wearixbd' };
     if (publicId) uploadOptions.public_id = publicId;
