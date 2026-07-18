@@ -3,6 +3,8 @@ import { getBlogs } from '@/lib/db';
 import { SITE_NAME } from '@/constants';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: `Blog | ${SITE_NAME}`,
   description: 'Style Guides, Sizing, and more.',

@@ -5,6 +5,8 @@ import { getBlogBySlug } from '@/lib/db';
 import { SITE_NAME } from '@/constants';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: { slug: string };
 }
